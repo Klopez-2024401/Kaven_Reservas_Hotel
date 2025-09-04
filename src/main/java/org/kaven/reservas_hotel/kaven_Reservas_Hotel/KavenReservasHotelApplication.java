@@ -44,11 +44,11 @@ public class KavenReservasHotelApplication implements CommandLineRunner {
 	private int mostrarMenu(Scanner consola){
 		logger.info("""
 			    \n***Aplicación***
-			    1. Listar todos los clientes.
-			    2. Buscar cliente por código.
-			    3. Agregar nuevo cliente.
-			    4. Modificar cliente.
-			    5. Eliminar cliente.
+			    1. Listar todos los Usuarios.
+			    2. Buscar Habitacion por código.
+			    3. Agregar nuevo usuario.
+			    4. Modificar usuario.
+			    5. Eliminar usuario.
 			    6. Salir.
 			    Elija una opcion: \s""");
 		var opcion = Integer.parseInt(consola.nextLine());
