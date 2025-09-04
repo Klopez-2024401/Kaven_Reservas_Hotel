@@ -3,17 +3,20 @@ package org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "Usuario")
+import java.util.Date;
+
+@Entity(name = "Reserva")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Usuario {
+public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id_usuario;
-    private String nombre_usuario;
-    private String correo_usuario;
-    private String contraseña;
+    private Integer id_reserva;
+    private Date fecha_entrada;
+    private Date fecha_salida;
+    private Integer id_huesped;
+    private Integer id_habitacion;
 }
