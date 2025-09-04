@@ -18,3 +18,11 @@ create table Huesped (
     constraint pk_huesped primary key (id_huesped)
 );
 
+create table Habitacion(
+	id_habitacion int not null auto_increment,
+    numero_habitacion int not null,
+    tipo_habitacion ENUM('Simple', 'Doble', 'Familiar', 'Suite') default 'Simple',
+    disponibilidad ENUM('Disponible', 'Ocupado') default 'Disponible',
+    precio decimal(10,2) not null,
+    constraint pk_habitacion primary key (id_habitacion)
+);
