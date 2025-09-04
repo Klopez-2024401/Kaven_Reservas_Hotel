@@ -26,3 +26,29 @@ create table Habitacion(
     precio decimal(10,2) not null,
     constraint pk_habitacion primary key (id_habitacion)
 );
+
+
+create table Reserva (
+	id_reserva int not null auto_increment,
+    fecha_entrada date not null,
+    fecha_salida date not null,
+    id_huesped int not null,
+    id_habitacion int not null,
+    constraint pk_reserva primary key (id_reserva),
+    constraint fk_huesped_reserva foreign key (id_huesped)
+		references Huesped (id_huesped),
+	constraint fk_habitacion_reserva foreign key (id_habitacion)
+		references Habitacion (id_habitacion)
+);
+
+create table Pago (
+	id_pago int not null auto_increment,
+    estado_pago ENUM('Pendiente','Pagado') default 'Pendiente',
+    id_reserva int not null,
+    id_usuario int not null,
+    constraint pk_pago primary key (id_pago),
+    constraint fk_reserva_pago foreign key (id_reserva)
+		references Reserva (id_reserva),
+	constraint fk_usuario_pago foreign key (id_usuario)
+		references Usuario (id_usuario)
+);
