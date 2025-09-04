@@ -1,15 +1,17 @@
 package org.kaven.reservas_hotel.kaven_Reservas_Hotel.service;
 
-import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.crud.HabitacionCrud;
+import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.crud.HuespedCrud;
+import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.entity.Huesped;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class HuespedService {
+public class HuespedService implements IHuespedService{
     @Autowired
-    private HabitacionCrud crud;
+    private HuespedCrud crud;
 
     @Override
     public List<Huesped> listarHuespedes(){
@@ -18,8 +20,8 @@ public class HuespedService {
     }
 
     @Override
-    Public Huesped buscarHuespedPorId(Integer codigo){
-        Huesped huesped = crud.findById(codigo).orElse(null):
+    public Huesped buscarHuespedPorId(Integer codigo){
+        Huesped huesped = crud.findById(codigo).orElse(null);
         return huesped;
     }
 
