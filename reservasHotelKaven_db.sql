@@ -52,3 +52,28 @@ create table Pago (
 	constraint fk_usuario_pago foreign key (id_usuario)
 		references Usuario (id_usuario)
 );
+
+
+insert into Usuario (nombre_usuario, correo_usuario, contraseña)
+values 
+    ('admin', 'admin@hotelkaven.com', 'password123'),
+    ('johndoe', 'johndoe@correo.com', 'qwerty123'),
+    ('maryjane', 'maryjane@correo.com', 'abc12345');
+
+insert into Huesped (nombre_huesped, apellido_huesped, correo_huesped)
+values
+    ('Juan', 'Pérez', 'juan.perez@correo.com'),
+    ('María', 'González', 'maria.gonzalez@correo.com'),
+    ('Carlos', 'López', 'carlos.lopez@correo.com'),
+    ('Lucía', 'Martínez', 'lucia.martinez@correo.com');
+
+
+insert into Habitacion (numero_habitacion, tipo_habitacion, disponibilidad, precio)
+values 
+    (101, 'Simple', 'Disponible', 50.00),
+    (102, 'Doble', 'Ocupado', 75.00),
+    (103, 'Familiar', 'Disponible', 100.00),
+    (104, 'Suite', 'Disponible', 150.00),
+    (106, 'Doble', 'Disponible', 75.00);
+    
+select * from Huesped;
