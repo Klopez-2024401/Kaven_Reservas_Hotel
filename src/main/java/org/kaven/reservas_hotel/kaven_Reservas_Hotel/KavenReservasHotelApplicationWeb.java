@@ -4,8 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReservasHotelApplicationWeb {
+public class KavenReservasHotelApplicationWeb {
+
     public static void main(String[] args) {
-        SpringApplication.run(ReservasHotelApplicationWeb.class, args);
+        SpringApplication.run(KavenReservasHotelApplicationWeb.class, args);
     }
+
 }

@@ -1,13 +1,14 @@
-package org.kaven.reservas_hotel.kaven_Reservas_Hotel.service;
+package org.kaven.reservas_hotel.kaven_Reservas_Hotel.dominio.service;
 
 import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.crud.HabitacionCrud;
+import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.entity.Habitacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class HabitacionService {
+public class HabitacionService implements IHabitacionService{
     @Autowired
     private HabitacionCrud crud;
 
@@ -18,9 +19,9 @@ public class HabitacionService {
     }
 
     @Override
-    Public Habitacion buscarHabitacionPorId(Integer codigo){
-        Habitacion habitacion = crud.findById(codigo).orElse(null):
-        return;
+    public Habitacion buscarHabitacionPorId(Integer codigo){
+        Habitacion habitacion = crud.findById(codigo).orElse(null);
+        return habitacion;
     }
 
     @Override
