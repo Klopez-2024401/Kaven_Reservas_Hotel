@@ -1,11 +1,9 @@
-package org.kaven.reservas_hotel.kaven_Reservas_Hotel.service;
+package org.kaven.reservas_hotel.kaven_Reservas_Hotel.dominio.service;
 
-import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.crud.HuespedCrud;
 import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.crud.ReservaCrud;
 import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.entity.Reserva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.entity.Reserva;
 
 import java.util.List;
 
