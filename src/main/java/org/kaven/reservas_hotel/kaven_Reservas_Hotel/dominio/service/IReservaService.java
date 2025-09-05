@@ -1,4 +1,4 @@
-package org.kaven.reservas_hotel.kaven_Reservas_Hotel.service;
+package org.kaven.reservas_hotel.kaven_Reservas_Hotel.dominio.service;
 
 import org.kaven.reservas_hotel.kaven_Reservas_Hotel.persistence.entity.Reserva;
 
