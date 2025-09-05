@@ -45,7 +45,9 @@ create table Reserva (
 
 create table Pago (
 	id_pago int not null auto_increment,
+    total decimal(10, 2) not null,
     estado_pago ENUM('Pendiente','Pagado') default 'Pendiente',
+    metodo_pago ENUM('Tarjeta de credito','Efectivo','Transferencia movil') default 'Tarjeta de credito',
     id_reserva int not null,
     id_usuario int not null,
     constraint pk_pago primary key (id_pago),
