@@ -18,6 +18,14 @@ create table Huesped (
     constraint pk_huesped primary key (id_huesped)
 );
 
+create table Servicios (
+	id_servicio int not null,
+    nombre_servicio varchar(64) not null,
+    descripcion text not null,
+    precio_servicio decimal (10, 2) not null,
+	constraint pk_servicios primary key (id_servicio)
+);
+
 create table Habitacion(
 	id_habitacion int not null auto_increment,
     numero_habitacion int not null,
@@ -34,18 +42,24 @@ create table Reserva (
     fecha_salida date not null,
     id_huesped int not null,
     id_habitacion int not null,
+    id_servicio int not null,
     constraint pk_reserva primary key (id_reserva),
     constraint fk_huesped_reserva foreign key (id_huesped)
 		references Huesped (id_huesped)
     on delete cascade,    
 	constraint fk_habitacion_reserva foreign key (id_habitacion)
 		references Habitacion (id_habitacion)
+	on delete cascade,
+    constraint fk_servicios_reserva foreign key (id_servicio)
+		references Servicios (id_servicio)
 	on delete cascade
 );
 
 create table Pago (
 	id_pago int not null auto_increment,
+    total decimal(10, 2) not null,
     estado_pago ENUM('Pendiente','Pagado') default 'Pendiente',
+    metodo_pago ENUM('Tarjeta de credito','Efectivo','Transferencia movil') default 'Tarjeta de credito',
     id_reserva int not null,
     id_usuario int not null,
     constraint pk_pago primary key (id_pago),
