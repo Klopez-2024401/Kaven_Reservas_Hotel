@@ -1,19 +1,297 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hotel de Lujo - Tu Refugio en la Ciudad</title>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+    </f:facet>
+    <style type="text/css">
 
-<h:html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:h="http://xmlns.jcp.org/jsf/html"
-        xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Bienbenido . ReservacionHotel</title>
-        <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
-    </h:head>
-    <h:body>
-        <div class="card">
-            <h:form>
-                <p:growl />
+        :root {
+            --color-primary: #8B5C5C;
+            --color-secondary: #E3D9C9;
+            --color-text-dark: #333333;
+            --color-text-light: #F7F7F7;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-text-dark);
+            background-color: #fff;
+        }
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-bg {
+            background-image: url('https://png.pngtree.com/background/20231030/original/pngtree-d-render-lavish-lounge-area-in-a-five-star-luxury-hotel-picture-image_5804335.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .nav-link {
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-secondary);
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .door-spin {
+            animation: spin 3s infinite linear;
+            transform-origin: 50% 50%;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu-active {
+            transform: translateY(0);
+        }
+        .ui-menubar {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .ui-menubar .ui-menuitem-link {
+            color: white !important;
+        }
+        .ui-menubar .ui-menuitem-link:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+        .btn-reserve {
+            background: transparent !important;
+            border: 2px solid white !important;
+            color: white !important;
+        }
+        .btn-reserve:hover {
+            background: white !important;
+            color: #333 !important;
+        }
+    </style>
+</h:head>
+<h:body styleClass="bg-gray-50 text-gray-800">
 
-            </h:form>
+    <section class="relative h-screen w-full flex items-center justify-center text-white hero-bg">
+        <div class="overlay absolute inset-0"></div>
+        <div class="z-10 text-center space-y-4 max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight drop-shadow-lg">Prisma Hotel</h1>
+            <p class="text-xl sm:text-2xl font-light italic">Su santuario en el corazón de la ciudad.</p>
         </div>
-    </h:body>
+    </section>
 
-</h:html>
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-20 transition-all duration-300 bg-transparent">
+        <div id="nav-container" class="container mx-auto px-4 py-4 flex justify-between items-center transition-all duration-300">
+            <h:link outcome="index" class="text-2xl font-bold font-serif text-white transition-colors duration-300 nav-logo">Hotel</h:link>
+
+            <p:menubar id="desktop-menu" styleClass="hidden lg:flex items-center space-x-8 text-white">
+                <p:menuitem value="HOTEL" styleClass="nav-link font-medium" outcome="index.xhtml"/>
+
+                <p:submenu label="HABITACIONES" styleClass="nav-link font-medium">
+                    <p:menuitem value="ESTÁNDAR" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="CORNER" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="EJECUTIVA" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="JUNIOR SUITE" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="HANDICAP" outcome="habitaciones.xhtml" />
+                </p:submenu>
+
+                <p:menuitem value="RESTAURANTE" styleClass="nav-link font-medium" outcome="restaurante.xhtml" />
+                <p:menuitem value="BAR" styleClass="nav-link font-medium" outcome="bar.xhtml" />
+            </p:menubar>
+            <p:commandButton id="menu-button" styleClass="lg:hidden text-white focus:outline-none" icon="pi pi-bars" />
+        </div>
+    </nav>
+
+    <p:dialog id="mobile-menu-panel" modal="true" styleClass="mobile-menu fixed top-0 left-0 w-full h-full bg-gray-900 z-40 transform -translate-y-full lg:hidden p-8 text-white">
+        <p:commandButton id="close-menu-button" styleClass="absolute top-4 right-4 text-white" icon="pi pi-times" />
+        <ul class="flex flex-col items-center justify-center h-full space-y-6 text-2xl font-semibold">
+            <li><h:link outcome="habitaciones.xhtml" value="Habitaciones" styleClass="nav-link" /></li>
+            <li><h:link outcome="index" value="Promociones" styleClass="nav-link" /></li>
+            <li><h:link outcome="index" value="Restaurante" styleClass="nav-link" /></li>
+            <li><h:link outcome="index" value="Bar" styleClass="nav-link" /></li>
+        </ul>
+    </p:dialog>
+
+    <section id="servicios" class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-2">NUESTROS SERVICIOS</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-y-12 gap-x-8 mt-16">
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <i class="fas fa-clock text-4xl"></i>
+                    </div>
+                    <p class="font-bold mt-4">Despertador</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Llamadas de despertador.</p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <i class="fas fa-plane-departure text-4xl"></i>
+                    </div>
+                    <p class="font-bold mt-4">Traslados</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Traslado desde y hacia el Aeropuerto.</p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <i class="fas fa-paw text-4xl"></i>
+                    </div>
+                    <p class="font-bold mt-4">Mascotas</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Aceptamos perros guía.</p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <i class="fas fa-swimmer text-4xl"></i>
+                    </div>
+                    <p class="font-bold mt-4">Piscina</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Al aire libre.</p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <i class="fas fa-spa text-4xl"></i>
+                    </div>
+                    <p class="font-bold mt-4">Spa</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Experiencia relajante.</p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <i class="fas fa-car-side text-4xl"></i>
+                    </div>
+                    <p class="font-bold mt-4">Parqueo</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Bajo techo.</p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <svg class="w-10 h-10 text-gray-800" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
+                            <circle class="door-spin" cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
+                            <line x1="8" y1="4" x2="16" y2="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+                            <circle cx="17" cy="4" r="1" fill="currentColor"></circle>
+                        </svg>
+                    </div>
+                    <p class="font-bold mt-4">Lavandería</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Servicio de lavandería.</p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <i class="fas fa-dumbbell text-4xl"></i>
+                    </div>
+                    <p class="font-bold mt-4">Gimnasio</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Panorámico.</p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <i class="fas fa-bell-concierge text-4xl"></i>
+                    </div>
+                    <p class="font-bold mt-4">Servicio</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">A la habitación.</p>
+                </div>
+
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
+                        <i class="fas fa-credit-card text-4xl"></i>
+                    </div>
+                    <p class="font-bold mt-4">ATM</p>
+                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Dentro del hotel.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="text-xl font-bold text-white mb-4">Hotel de Lujo</h3>
+                <p class="text-sm">123 Calle Principal, Ciudad de Ejemplo, 12345</p>
+                <p class="text-sm">Teléfono: (123) 456-7890</p>
+                <p class="text-sm">Email: info@hoteldelujo.com</p>
+            </div>
+            <div></div>
+            <div>
+                <h3 class="text-xl font-bold text-white mb-4">Síguenos</h3>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="#" class="hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.77l-.44 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="#" class="hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.01 3.715.051 1.05.044 1.749.139 2.296.377.552.232.944.557 1.287.96.346.405.672.845.922 1.402.256.567.399 1.23.419 2.161.02.93.02 1.284.02 3.715s0 2.784-.02 3.715c-.02 1.03-.162 1.693-.419 2.161-.256.557-.582.97-.922 1.402-.343.403-.735.728-1.287.96-.547.237-1.246.333-2.296.377-.93.04-1.285.05-3.715.05s-2.784-.01-3.715-.051c-1.05-.044-1.748-.139-2.296-.377-.552-.232-.944-.557-1.287-.96-.346-.405-.672-.845-.922-1.402-.256-.567-.399-1.23-.419-2.161-.02-.93-.02-1.284-.02-3.715s0-2.784.02-3.715c.02-1.03.162-1.693.419-2.161.256-.557.582-.97.922-1.402.343-.403.735-.728 1.287-.96.547-.237 1.246-.333 2.296-.377C9.531 2.01 9.885 2 12.315 2zm0 0l-1.047 3.39c-.295.96.22 1.944 1.18 2.239l1.047.314c.294-.96-.22-1.944-1.18-2.239L12.315 2zM12 12.24c-2.43 0-4.406-1.977-4.406-4.407S9.57 3.426 12 3.426c2.43 0 4.406 1.977 4.406 4.407S14.43 12.24 12 12.24zM12 1.492a10.508 10.508 0 0110.508 10.508A10.508 10.508 0 0112 22.508 10.508 10.508 0 011.492 12 10.508 10.508 0 0112 1.492z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const mobileMenuButton = document.getElementById("menu-button");
+            const closeMenuButton = document.getElementById("close-menu-button");
+            const mobileMenuPanel = document.getElementById("mobile-menu-panel");
+            const navbar = document.getElementById("navbar");
+
+            mobileMenuButton.addEventListener("click", () => {
+                mobileMenuPanel.classList.add("mobile-menu-active");
+            });
+            closeMenuButton.addEventListener("click", () => {
+                mobileMenuPanel.classList.remove("mobile-menu-active");
+            });
+
+            document.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add("bg-white", "shadow-md");
+                    navbar.classList.remove("bg-transparent");
+                    navbar.querySelectorAll("a").forEach(link => link.classList.remove("text-white"));
+                    navbar.querySelectorAll("a").forEach(link => link.classList.add("text-gray-800"));
+
+                    const menubar = document.querySelector('.ui-menubar');
+                    if (menubar) {
+                        menubar.style.background = 'white';
+                        menubar.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                        menubar.querySelectorAll('.ui-menuitem-link').forEach(item => item.style.color = '#333');
+                    }
+                } else {
+                    navbar.classList.remove("bg-white", "shadow-md");
+                    navbar.classList.add("bg-transparent");
+                    navbar.querySelectorAll("a").forEach(link => link.classList.remove("text-gray-800"));
+                    navbar.querySelectorAll("a").forEach(link => link.classList.add("text-white"));
+
+                    const menubar = document.querySelector('.ui-menubar');
+                    if (menubar) {
+                        menubar.style.background = 'transparent';
+                        menubar.style.boxShadow = 'none';
+                        menubar.querySelectorAll('.ui-menuitem-link').forEach(item => item.style.color = 'white');
+                    }
+                }
+            });
+        });
+    </script>
+</h:body>
+</html>

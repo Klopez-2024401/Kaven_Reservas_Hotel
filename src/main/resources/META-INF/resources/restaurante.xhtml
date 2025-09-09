@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Restaurante - Hotel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+    </style>
+</h:head>
+
+<h:body styleClass="bg-gray-50 text-gray-800">
+
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-20 transition-all duration-300 bg-transparent">
+        <div id="nav-container" class="container mx-auto px-4 py-4 flex justify-between items-center transition-all duration-300">
+            <h:link outcome="index.xhtml" class="text-2xl font-bold font-serif text-white transition-colors duration-300 nav-logo">Hotel</h:link>
+
+            <p:menubar id="desktop-menu" styleClass="hidden lg:flex items-center space-x-8 text-white">
+                <p:menuitem value="HOTEL" styleClass="nav-link font-medium" outcome="index.xhtml" />
+
+                <p:submenu label="HABITACIONES" styleClass="nav-link font-medium">
+                    <p:menuitem value="ESTÁNDAR" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="CORNER" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="EJECUTIVA" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="JUNIOR SUITE" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="HANDICAP" outcome="habitaciones.xhtml" />
+                </p:submenu>
+                <p:menuitem value="RESTAURANTE" styleClass="nav-link font-medium" outcome="restaurante.xhtml" />
+                <p:menuitem value="BAR" styleClass="nav-link font-medium" outcome="bar.xhtml" />
+            </p:menubar>
+            <p:commandButton id="menu-button" styleClass="lg:hidden text-white focus:outline-none" icon="pi pi-bars" />
+        </div>
+    </nav>
+
+    <div class="relative w-full h-[350px] bg-cover bg-center"
+         style="background-image: url('https://e1.pxfuel.com/desktop-wallpaper/718/302/desktop-wallpaper-restaurant-food-restaurant.jpg');">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+            <h1 class="text-5xl font-bold text-white">Restaurante PRISMA</h1>
+        </div>
+    </div>
+
+    <section class="py-12 container mx-auto px-6 md:flex md:space-x-8">
+        <div class="md:w-1/2">
+            <h2 class="text-4xl font-bold text-[#8B5C5C] mb-4">Restaurante Volcanes</h2>
+            <h3 class="text-xl text-gray-700 mb-6">Una experiencia gastronómica única en la ciudad</h3>
+            <p class="text-gray-600 mb-4">
+                Reconocidos por nuestra majestuosa cocina, en el Restaurante Volcanes podrás disfrutar de
+                una exquisita gastronomía nacional e internacional. Nuestro buffet incluye desayuno, almuerzo y cena,
+                con temáticas diferentes cada día y un variado menú a la carta.
+            </p>
+            <ul class="list-disc list-inside text-gray-600 mb-4">
+                <li>Abierto todos los días de 6:00 a 21:00 hrs</li>
+                <li>Servicio de buffet y menú a la carta</li>
+                <li>Platos internacionales y tradicionales</li>
+                <li>Ambiente familiar y elegante</li>
+            </ul>
+            <p class="mb-2"><b>WhatsApp:</b> +502 4664-7278</p>
+            <p class="mb-6 text-gray-500">¡Todos los días marcamos la diferencia!</p>
+        </div>
+
+        <div class="md:w-1/2 grid grid-cols-2 gap-4 mt-8 md:mt-0">
+            <img src="https://www.shutterstock.com/image-photo/open-buffet-very-delicious-varieties-600nw-1919678066.jpg"
+                 alt="Buffet" class="rounded-lg shadow"/>
+            <img src="https://www.guatemala.com/fotos/2024/11/Restaurantes-para-comprar-sushi-en-Guatemala.jpg"
+                 alt="Sushi" class="rounded-lg shadow"/>
+            <img src="https://www.cocinavital.mx/wp-content/uploads/2024/05/postres-para-mama-con-50-pesos.jpg"
+                 alt="Postres" class="rounded-lg shadow"/>
+            <img src="https://content.elmueble.com/medio/2022/08/05/recetas-faciles-paracenar-en-el-sofa_4218e37d_900x900.jpg"
+                 alt="Cenas Especiales" class="rounded-lg shadow"/>
+        </div>
+    </section>
+
+</h:body>
+</html>
