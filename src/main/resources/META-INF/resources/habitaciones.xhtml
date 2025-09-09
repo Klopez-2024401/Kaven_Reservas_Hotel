@@ -2,488 +2,334 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 <h:head>
-    <f:facet name="first">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Hotel de Lujo - Tu Refugio en la Ciudad</title>
-        <!-- Corregido el error de sintaxis en la URL de las fuentes -->
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-        <script src="https://cdn.tailwindcss.com"></script>
-    </f:facet>
-    <style type="text/css">
-        /* El CSS personalizado se mantiene aquí */
-        :root {
-            --color-primary: #8B5C5C;
-            --color-secondary: #E3D9C9;
-            --color-text-dark: #333333;
-            --color-text-light: #F7F7F7;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--color-text-dark);
-            background-color: #fff;
-        }
-        h1, h2 {
-            font-family: 'Playfair Display', serif;
-        }
-        .hero-bg {
-            /* Usamos un placeholder para la imagen de fondo */
-            background-image: url('https://placehold.co/1920x1080/8B5C5C/E3D9C9?text=Tu+Refugio+en+la+Ciudad');
-            background-size: cover;
-            background-position: center;
-        }
-        .overlay {
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-        .nav-link {
-            position: relative;
-            padding-bottom: 2px;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--color-secondary);
-            transition: width 0.3s ease-in-out;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .door-spin {
-            animation: spin 3s infinite linear;
-            transform-origin: 50% 50%;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .mobile-menu {
-            transition: transform 0.3s ease-in-out;
-        }
-        .mobile-menu-active {
-            transform: translateY(0);
-        }
-
-        /*
-         * ESTILOS AÑADIDOS PARA HACER TRANSPARENTE EL MENÚ DE NAVEGACIÓN
-         * Y EL BOTÓN "RESERVAR AHORA"
-         */
-
-        /* Estilo para el menubar de PrimeFaces */
-        .ui-menubar {
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-        }
-        .ui-menubar .ui-menuitem-link {
-            color: white !important;
-        }
-        .ui-menubar .ui-menuitem-link:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
-        }
-
-        /* Estilo para el botón de reserva */
-        .btn-reserve {
-            background: transparent !important;
-            border: 2px solid white !important;
-            color: white !important;
-        }
-        .btn-reserve:hover {
-            background: white !important;
-            color: #333 !important;
-        }
-
-        /*
-         * NUEVOS ESTILOS PARA EL CATÁLOGO Y LOS BOTONES DE ACCIÓN
-         */
+    <title>Catálogo de Habitaciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
         .card {
-            background-color: #fff;
+            background: #fff;
             border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             overflow: hidden;
-            transition: transform 0.3s ease-in-out;
+            transition: transform .3s ease;
         }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-        .btn-action {
-            width: 100%;
-            border-radius: 9999px;
-            font-weight: 600;
-        }
+        .card:hover { transform: translateY(-5px); }
+        .card-img { width: 100%; height: 250px; object-fit: cover; }
+        .btn-action { width: 100%; border-radius: 9999px; font-weight: 600; }
     </style>
 </h:head>
+
 <h:body styleClass="bg-gray-50 text-gray-800">
 
-    <!-- Sección Hero con Imagen de Fondo -->
-    <section class="relative h-screen w-full flex items-center justify-center text-white hero-bg">
-        <div class="overlay absolute inset-0"></div>
-        <div class="z-10 text-center space-y-4 max-w-4xl mx-auto px-4">
-            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight drop-shadow-lg">Hotel de Lujo</h1>
-            <p class="text-xl sm:text-2xl font-light italic">Su santuario en el corazón de la ciudad.</p>
-            <!-- Botón de reserva con estilo transparente -->
-            <p:commandButton value="Reservar Ahora" styleClass="mt-8 px-8 py-4 font-semibold rounded-full shadow-lg transition-all duration-300 btn-reserve" />
-        </div>
-    </section>
-
-    <!-- Barra de Navegación -->
     <nav id="navbar" class="fixed top-0 left-0 w-full z-20 transition-all duration-300 bg-transparent">
         <div id="nav-container" class="container mx-auto px-4 py-4 flex justify-between items-center transition-all duration-300">
-            <h:link outcome="index" class="text-2xl font-bold font-serif text-white transition-colors duration-300 nav-logo">Hotel</h:link>
+            <h:link outcome="index.xhtml" class="text-2xl font-bold font-serif text-white transition-colors duration-300 nav-logo">Hotel</h:link>
 
-            <!-- Menú de escritorio (usando PrimeFaces) -->
             <p:menubar id="desktop-menu" styleClass="hidden lg:flex items-center space-x-8 text-white">
-                <p:menuitem value="HOTEL" styleClass="nav-link font-medium" />
+                <p:menuitem value="HOTEL" styleClass="nav-link font-medium" outcome="index.xhtml" />
 
                 <p:submenu label="HABITACIONES" styleClass="nav-link font-medium">
-                    <p:menuitem value="ESTÁNDAR" outcome="index" />
-                    <p:menuitem value="CORNER" outcome="index" />
-                    <p:menuitem value="EJECUTIVA" outcome="index" />
-                    <p:menuitem value="JUNIOR SUITE" outcome="index" />
-                    <p:menuitem value="HANDICAP" outcome="index" />
+                    <p:menuitem value="ESTÁNDAR" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="CORNER" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="EJECUTIVA" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="JUNIOR SUITE" outcome="habitaciones.xhtml" />
+                    <p:menuitem value="HANDICAP" outcome="habitaciones.xhtml" />
                 </p:submenu>
-
-                <p:menuitem value="PROMOCIONES" styleClass="nav-link font-medium" outcome="index" />
-                <p:menuitem value="RESTAURANTE" styleClass="nav-link font-medium" outcome="index" />
-                <p:menuitem value="BAR" styleClass="nav-link font-medium" outcome="index" />
+                <p:menuitem value="RESTAURANTE" styleClass="nav-link font-medium" outcome="restaurante.xhtml" />
+                <p:menuitem value="BAR" styleClass="nav-link font-medium" outcome="bar.xhtml" />
             </p:menubar>
-            <!-- Botón para el menú móvil -->
             <p:commandButton id="menu-button" styleClass="lg:hidden text-white focus:outline-none" icon="pi pi-bars" />
         </div>
     </nav>
 
-    <!-- Menú móvil, oculto por defecto -->
-    <p:dialog id="mobile-menu-panel" modal="true" styleClass="mobile-menu fixed top-0 left-0 w-full h-full bg-gray-900 z-40 transform -translate-y-full lg:hidden p-8 text-white">
-        <p:commandButton id="close-menu-button" styleClass="absolute top-4 right-4 text-white" icon="pi pi-times" />
-        <ul class="flex flex-col items-center justify-center h-full space-y-6 text-2xl font-semibold">
-            <li><h:link outcome="index" value="Habitaciones" styleClass="nav-link" /></li>
-            <li><h:link outcome="index" value="Promociones" styleClass="nav-link" /></li>
-            <li><h:link outcome="index" value="Restaurante" styleClass="nav-link" /></li>
-            <li><h:link outcome="index" value="Bar" styleClass="nav-link" /></li>
-        </ul>
-    </p:dialog>
-
-    <!-- Modal de Inicio de Sesión -->
-    <p:dialog header="Iniciar Sesión" widgetVar="loginDialog" modal="true" resizable="false">
-        <h:form id="loginForm">
-            <h:panelGrid columns="2" cellpadding="5">
-                <p:outputLabel for="emailLogin" value="Correo:" />
-                <p:inputText id="emailLogin" value="#{userBean.email}" required="true" />
-
-                <p:outputLabel for="passwordLogin" value="Contraseña:" />
-                <p:password id="passwordLogin" value="#{userBean.password}" required="true" />
-            </h:panelGrid>
-            <f:facet name="footer">
-                <p:commandButton value="Entrar" actionListener="#{userBean.login}" oncomplete="if (args.loggedIn) PF('loginDialog').hide();" update="@form" />
-                <p:commandButton value="Registrarse" styleClass="ui-button-flat ui-button-secondary" onclick="PF('loginDialog').hide(); PF('registerDialog').show();" type="button" />
-            </f:facet>
-            <p:messages id="loginMessages" showDetail="true" autoUpdate="true" closable="true" />
-        </h:form>
-    </p:dialog>
-
-    <!-- Modal de Registro -->
-    <p:dialog header="Registrarse" widgetVar="registerDialog" modal="true" resizable="false">
-        <h:form id="registerForm">
-            <h:panelGrid columns="2" cellpadding="5">
-                <p:outputLabel for="usernameReg" value="Usuario:" />
-                <p:inputText id="usernameReg" value="#{userBean.username}" required="true" />
-
-                <p:outputLabel for="emailReg" value="Correo:" />
-                <p:inputText id="emailReg" value="#{userBean.email}" required="true" />
-
-                <p:outputLabel for="passwordReg" value="Contraseña:" />
-                <p:password id="passwordReg" value="#{userBean.password}" required="true" />
-
-                <p:outputLabel for="confirmPasswordReg" value="Confirmar Contraseña:" />
-                <p:password id="confirmPasswordReg" value="#{userBean.confirmPassword}" required="true" />
-            </h:panelGrid>
-            <f:facet name="footer">
-                <p:commandButton value="Crear Cuenta" actionListener="#{userBean.register}" oncomplete="if (args.registered) PF('registerDialog').hide(); PF('loginDialog').show();" update="@form" />
-            </f:facet>
-            <p:messages id="registerMessages" showDetail="true" autoUpdate="true" closable="true" />
-        </h:form>
-    </p:dialog>
-
-    <!-- Modal de Detalles de Habitación -->
-    <p:dialog header="Detalles de Habitación" widgetVar="roomDetailsDialog" modal="true" resizable="false">
-        <h:panelGrid columns="1" cellpadding="5" styleClass="w-full">
-            <p:outputPanel id="roomDetailsPanel">
-                <h:graphicImage value="#{roomBean.selectedRoom.image}" styleClass="w-full h-auto mb-4" />
-                <h:outputText value="Tipo: #{roomBean.selectedRoom.name}" styleClass="font-bold text-lg" />
-                <h:outputText value="Descripción: #{roomBean.selectedRoom.description}" styleClass="text-gray-600 mt-2 block" />
-                <h:outputText value="Precio: $#{roomBean.selectedRoom.price} por noche" styleClass="font-bold text-xl text-green-600 mt-4 block" />
-            </p:outputPanel>
-        </h:panelGrid>
-        <f:facet name="footer">
-            <p:commandButton value="Cerrar" onclick="PF('roomDetailsDialog').hide();" type="button" />
-        </f:facet>
-    </p:dialog>
-
-    <!-- Modal de Formulario de Reserva -->
-    <p:dialog header="Reservar Habitación" widgetVar="reserveDialog" modal="true" resizable="false">
-        <h:form id="reservationForm">
-            <h:panelGrid columns="2" cellpadding="5">
-                <p:outputLabel for="checkInDate" value="Fecha de Entrada:" />
-                <p:calendar id="checkInDate" value="#{reservationBean.checkInDate}" required="true" />
-
-                <p:outputLabel for="checkOutDate" value="Fecha de Salida:" />
-                <p:calendar id="checkOutDate" value="#{reservationBean.checkOutDate}" required="true" />
-
-                <p:outputLabel for="guests" value="Número de Huéspedes:" />
-                <p:spinner id="guests" value="#{reservationBean.guests}" min="1" max="5" />
-            </h:panelGrid>
-            <f:facet name="footer">
-                <p:commandButton value="Confirmar Reserva" actionListener="#{reservationBean.makeReservation}" oncomplete="if (args.reserved) PF('reserveDialog').hide();" update="@form" />
-            </f:facet>
-            <p:messages id="reservationMessages" showDetail="true" autoUpdate="true" closable="true" />
-        </h:form>
-    </p:dialog>
-
-    <!-- Sección de Catálogo de Habitaciones -->
-    <section id="catalog-section" class="py-20 bg-gray-100">
+    <section class="py-20 bg-gray-100">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-12">NUESTRAS HABITACIONES</h2>
+            <h2 class="text-4xl font-bold mb-12">Nuestras Habitaciones</h2>
 
             <h:form id="roomForm">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Tarjeta para la Habitación Estándar -->
+
                     <div class="card">
-                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" alt="Habitación Estándar" class="card-img" />
+                        <img src="https://images.homify.com/v1452164048/p/photo/image/1227856/3.jpg" class="card-img"/>
                         <div class="p-6 text-left">
-                            <h3 class="text-2xl font-bold text-gray-800">Habitación Estándar</h3>
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
                             <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
-                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action" actionListener="#{userBean.checkAuthentication}" oncomplete="if (args.authenticated) PF('roomDetailsDialog').show();" update=":roomDetailsPanel">
-                                <f:setPropertyActionListener value="Estandar" target="#{roomBean.roomName}" />
-                            </p:commandButton>
-                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2" actionListener="#{userBean.checkAuthentication}" oncomplete="if (args.authenticated) PF('reserveDialog').show();" update=":reservationForm">
-                                <f:setPropertyActionListener value="Estandar" target="#{roomBean.roomName}" />
-                            </p:commandButton>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
                         </div>
                     </div>
 
                     <div class="card">
-                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Corner" alt="Habitación Corner" class="card-img" />
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
                         <div class="p-6 text-left">
-                            <h3 class="text-2xl font-bold text-gray-800">Habitación Corner</h3>
-                            <p class="text-lg font-semibold text-green-600 my-2">$200 por noche</p>
-                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action" actionListener="#{userBean.checkAuthentication}" oncomplete="if (args.authenticated) PF('roomDetailsDialog').show();" update=":roomDetailsPanel">
-                                <f:setPropertyActionListener value="Corner" target="#{roomBean.roomName}" />
-                            </p:commandButton>
-                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2" actionListener="#{userBean.checkAuthentication}" oncomplete="if (args.authenticated) PF('reserveDialog').show();" update=":reservationForm">
-                                <f:setPropertyActionListener value="Corner" target="#{roomBean.roomName}" />
-                            </p:commandButton>
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
                         </div>
                     </div>
 
-                    <!-- Tarjeta para la Habitación Ejecutiva -->
                     <div class="card">
-                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Ejecutiva" alt="Habitación Ejecutiva" class="card-img" />
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
                         <div class="p-6 text-left">
-                            <h3 class="text-2xl font-bold text-gray-800">Habitación Ejecutiva</h3>
-                            <p class="text-lg font-semibold text-green-600 my-2">$250 por noche</p>
-                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action" actionListener="#{userBean.checkAuthentication}" oncomplete="if (args.authenticated) PF('roomDetailsDialog').show();" update=":roomDetailsPanel">
-                                <f:setPropertyActionListener value="Ejecutiva" target="#{roomBean.roomName}" />
-                            </p:commandButton>
-                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2" actionListener="#{userBean.checkAuthentication}" oncomplete="if (args.authenticated) PF('reserveDialog').show();" update=":reservationForm">
-                                <f:setPropertyActionListener value="Ejecutiva" target="#{roomBean.roomName}" />
-                            </p:commandButton>
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
                         </div>
                     </div>
+
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
+                        <div class="p-6 text-left">
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
+                        <div class="p-6 text-left">
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
+                        <div class="p-6 text-left">
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
+                        <div class="p-6 text-left">
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
+                        <div class="p-6 text-left">
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
+                        <div class="p-6 text-left">
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
+                        <div class="p-6 text-left">
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
+                        <div class="p-6 text-left">
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://placehold.co/600x400/8B5C5C/E3D9C9?text=Habitacion+Estandar" class="card-img"/>
+                        <div class="p-6 text-left">
+                            <h3 class="text-2xl font-bold">Habitación Estándar</h3>
+                            <p class="text-lg font-semibold text-green-600 my-2">$150 por noche</p>
+
+                            <p:commandButton value="Detalles" styleClass="ui-button-secondary btn-action"
+                                             actionListener="#{roomBean.showDetails('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('roomDetailsDialog').show();"
+                                             update=":roomDetailsPanel :loginForm"/>
+
+                            <p:commandButton value="Reservar" styleClass="ui-button-primary btn-action mt-2"
+                                             actionListener="#{roomBean.showReserve('Estandar')}"
+                                             oncomplete="if(!args.authenticated) PF('loginDialog').show(); else PF('reserveDialog').show();"
+                                             update=":reservationForm :loginForm"/>
+                        </div>
+                    </div>
+
                 </div>
             </h:form>
         </div>
     </section>
 
-    <!-- Sección de Servicios -->
-    <section id="servicios" class="py-20 bg-white">
-        <!-- El contenido de la sección de servicios se mantiene igual -->
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-2">NUESTROS SERVICIOS</h2>
+    <p:dialog id="roomDetailsDialog" widgetVar="roomDetailsDialog" header="Detalles de Habitación" modal="true" width="500">
+        <h:panelGroup id="roomDetailsPanel">
+            <h:outputText value="Detalles de la habitación: #{roomBean.roomName}" />
+        </h:panelGroup>
+    </p:dialog>
 
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-y-12 gap-x-8 mt-16">
-                <!-- Servicio 1: Despertador -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <i class="fas fa-clock text-4xl"></i>
-                    </div>
-                    <p class="font-bold mt-4">Despertador</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Llamadas de despertador.</p>
-                </div>
+    <p:dialog id="reserveDialog" widgetVar="reserveDialog" header="Reservar Habitación" modal="true" width="500">
+        <h:form id="reservationForm">
+            <p:panelGrid columns="2" style="width:100%">
+                <p:outputLabel for="checkIn" value="Fecha de llegada:" />
+                <p:datePicker id="checkIn" value="#{reservationBean.checkIn}" />
 
-                <!-- Servicio 2: Traslados -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <i class="fas fa-plane-departure text-4xl"></i>
-                    </div>
-                    <p class="font-bold mt-4">Traslados</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Traslado desde y hacia el Aeropuerto.</p>
-                </div>
+                <p:outputLabel for="checkOut" value="Fecha de salida:" />
+                <p:datePicker id="checkOut" value="#{reservationBean.checkOut}" />
+            </p:panelGrid>
+            <p:commandButton value="Confirmar Reserva" actionListener="#{reservationBean.reserve}"
+                             update="@form" oncomplete="if (args.reserved) PF('reserveDialog').hide();"/>
+        </h:form>
+    </p:dialog>
 
-                <!-- Servicio 3: Mascotas -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <i class="fas fa-paw text-4xl"></i>
-                    </div>
-                    <p class="font-bold mt-4">Mascotas</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Aceptamos perros guía.</p>
-                </div>
+    <p:dialog id="loginDialog" widgetVar="loginDialog" header="Iniciar Sesión" modal="true" width="400">
+        <h:form id="loginForm">
+            <p:messages id="loginMsg" />
+            <p:panelGrid columns="2" style="width:100%">
+                <p:outputLabel for="username" value="Usuario:" />
+                <p:inputText id="username" value="#{userBean.username}" />
 
-                <!-- Servicio 4: Piscina -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <i class="fas fa-swimmer text-4xl"></i>
-                    </div>
-                    <p class="font-bold mt-4">Piscina</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Al aire libre.</p>
-                </div>
+                <p:outputLabel for="password" value="Contraseña:" />
+                <p:password id="password" value="#{userBean.password}" feedback="false" />
+            </p:panelGrid>
+            <p:commandButton value="Ingresar" actionListener="#{userBean.login}"
+                             update="loginMsg" oncomplete="if (args.authenticated) PF('loginDialog').hide();"/>
+            <p:commandButton value="Registrarse" onclick="PF('registerDialog').show();return false;" type="button"/>
+        </h:form>
+    </p:dialog>
 
-                <!-- Servicio 5: Spa -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <i class="fas fa-spa text-4xl"></i>
-                    </div>
-                    <p class="font-bold mt-4">Spa</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Experiencia relajante.</p>
-                </div>
+    <p:dialog id="registerDialog" widgetVar="registerDialog" header="Registrarse" modal="true" width="400">
+        <h:form id="registerForm">
+            <p:messages id="registerMsg" />
+            <p:panelGrid columns="2" style="width:100%">
+                <p:outputLabel for="newUsername" value="Usuario:" />
+                <p:inputText id="newUsername" value="#{userBean.newUsername}" />
 
-                <!-- Servicio 6: Parqueo -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <i class="fas fa-car-side text-4xl"></i>
-                    </div>
-                    <p class="font-bold mt-4">Parqueo</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Bajo techo.</p>
-                </div>
+                <p:outputLabel for="newEmail" value="Correo:" />
+                <p:inputText id="newEmail" value="#{userBean.newEmail}" />
 
-                <!-- Servicio 7: Lavandería -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <svg class="w-10 h-10 text-gray-800" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></rect>
-                            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></circle>
-                            <circle class="door-spin" cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
-                            <line x1="8" y1="4" x2="16" y2="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
-                            <circle cx="17" cy="4" r="1" fill="currentColor"></circle>
-                        </svg>
-                    </div>
-                    <p class="font-bold mt-4">Lavandería</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Servicio de lavandería.</p>
-                </div>
+                <p:outputLabel for="newPassword" value="Contraseña:" />
+                <p:password id="newPassword" value="#{userBean.newPassword}" feedback="true" />
 
-                <!-- Servicio 8: Gimnasio -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <i class="fas fa-dumbbell text-4xl"></i>
-                    </div>
-                    <p class="font-bold mt-4">Gimnasio</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Panorámico.</p>
-                </div>
+                <p:outputLabel for="confirmPassword" value="Confirmar:" />
+                <p:password id="confirmPassword" value="#{userBean.confirmPassword}" feedback="true" />
+            </p:panelGrid>
+            <p:commandButton value="Registrar" actionListener="#{userBean.register}"
+                             update="registerMsg" oncomplete="if (args.registered) PF('registerDialog').hide();"/>
+        </h:form>
+    </p:dialog>
 
-                <!-- Servicio 9: Servicio a la habitación -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <i class="fas fa-bell-concierge text-4xl"></i>
-                    </div>
-                    <p class="font-bold mt-4">Servicio</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">A la habitación.</p>
-                </div>
-
-                <!-- Servicio 10: ATM -->
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="rounded-full bg-white p-4 text-gray-800 border-2 border-gray-300 shadow-md">
-                        <i class="fas fa-credit-card text-4xl"></i>
-                    </div>
-                    <p class="font-bold mt-4">ATM</p>
-                    <p class="text-sm text-center text-gray-500 max-w-[150px]">Dentro del hotel.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pie de Página -->
-    <footer class="bg-gray-900 text-gray-300 py-12">
-        <div class="container mx-auto px-4 grid md:grid-cols-3 gap-8 text-center md:text-left">
-            <!-- Columna 1 -->
-            <div>
-                <h3 class="text-xl font-bold text-white mb-4">Hotel de Lujo</h3>
-                <p class="text-sm">123 Calle Principal, Ciudad de Ejemplo, 12345</p>
-                <p class="text-sm">Teléfono: (123) 456-7890</p>
-                <p class="text-sm">Email: info@hoteldelujo.com</p>
-            </div>
-            <!-- Columna 2: Vacia -->
-            <div></div>
-            <!-- Columna 3 -->
-            <div>
-                <h3 class="text-xl font-bold text-white mb-4">Síguenos</h3>
-                <div class="flex justify-center md:justify-start space-x-4">
-                    <a href="#" class="hover:text-white transition-colors">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.77l-.44 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
-                    </a>
-                    <a href="#" class="hover:text-white transition-colors">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.01 3.715.051 1.05.044 1.749.139 2.296.377.552.232.944.557 1.287.96.346.405.672.845.922 1.402.256.567.399 1.23.419 2.161.02.93.02 1.284.02 3.715s0 2.784-.02 3.715c-.02 1.03-.162 1.693-.419 2.161-.256.557-.582.97-.922 1.402-.343.403-.735.728-1.287.96-.547.237-1.246.333-2.296.377-.93.04-1.285.05-3.715.05s-2.784-.01-3.715-.051c-1.05-.044-1.748-.139-2.296-.377-.552-.232-.944-.557-1.287-.96-.346-.405-.672-.845-.922-1.402-.256-.567-.399-1.23-.419-2.161-.02-.93-.02-1.284-.02-3.715s0-2.784.02-3.715c.02-1.03.162-1.693.419-2.161.256-.557.582-.97.922-1.402.343-.403.735-.728 1.287-.96.547-.237 1.246-.333 2.296-.377C9.531 2.01 9.885 2 12.315 2zm0 0l-1.047 3.39c-.295.96.22 1.944 1.18 2.239l1.047.314c.294-.96-.22-1.944-1.18-2.239L12.315 2zM12 12.24c-2.43 0-4.406-1.977-4.406-4.407S9.57 3.426 12 3.426c2.43 0 4.406 1.977 4.406 4.407S14.43 12.24 12 12.24zM12 1.492a10.508 10.508 0 0110.508 10.508A10.508 10.508 0 0112 22.508 10.508 10.508 0 011.492 12 10.508 10.508 0 0112 1.492z" clip-rule="evenodd" /></svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const mobileMenuButton = document.getElementById("menu-button");
-            const closeMenuButton = document.getElementById("close-menu-button");
-            const mobileMenuPanel = document.getElementById("mobile-menu-panel");
-            const navbar = document.getElementById("navbar");
-
-            mobileMenuButton.addEventListener("click", () => {
-                mobileMenuPanel.classList.add("mobile-menu-active");
-            });
-            closeMenuButton.addEventListener("click", () => {
-                mobileMenuPanel.classList.remove("mobile-menu-active");
-            });
-
-            // Cambiar navbar al hacer scroll
-            document.addEventListener("scroll", () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add("bg-white", "shadow-md");
-                    navbar.classList.remove("bg-transparent");
-                    navbar.querySelectorAll("a").forEach(link => link.classList.remove("text-white"));
-                    navbar.querySelectorAll("a").forEach(link => link.classList.add("text-gray-800"));
-
-                    // Asegurar que el menubar y sus items cambian de color
-                    const menubar = document.querySelector('.ui-menubar');
-                    if (menubar) {
-                        menubar.style.background = 'white';
-                        menubar.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-                        menubar.querySelectorAll('.ui-menuitem-link').forEach(item => item.style.color = '#333');
-                    }
-                } else {
-                    navbar.classList.remove("bg-white", "shadow-md");
-                    navbar.classList.add("bg-transparent");
-                    navbar.querySelectorAll("a").forEach(link => link.classList.remove("text-gray-800"));
-                    navbar.querySelectorAll("a").forEach(link => link.classList.add("text-white"));
-
-                    // Restaurar la transparencia del menubar
-                    const menubar = document.querySelector('.ui-menubar');
-                    if (menubar) {
-                        menubar.style.background = 'transparent';
-                        menubar.style.boxShadow = 'none';
-                        menubar.querySelectorAll('.ui-menuitem-link').forEach(item => item.style.color = 'white');
-                    }
-                }
-            });
-        });
-    </script>
 </h:body>
 </html>

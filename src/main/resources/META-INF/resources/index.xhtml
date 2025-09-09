@@ -30,9 +30,10 @@
             font-family: 'Playfair Display', serif;
         }
         .hero-bg {
-            background-image: url('https://placehold.co/1920x1080/8B5C5C/E3D9C9?text=Tu+Refugio+en+la+Ciudad');
+            background-image: url('https://png.pngtree.com/background/20231030/original/pngtree-d-render-lavish-lounge-area-in-a-five-star-luxury-hotel-picture-image_5804335.jpg');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
         }
         .overlay {
             background-color: rgba(0, 0, 0, 0.4);
@@ -95,10 +96,8 @@
     <section class="relative h-screen w-full flex items-center justify-center text-white hero-bg">
         <div class="overlay absolute inset-0"></div>
         <div class="z-10 text-center space-y-4 max-w-4xl mx-auto px-4">
-            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight drop-shadow-lg">Hotel de Lujo</h1>
+            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight drop-shadow-lg">Prisma Hotel</h1>
             <p class="text-xl sm:text-2xl font-light italic">Su santuario en el corazón de la ciudad.</p>
-            <p:commandButton value="Reservar Ahora" action="habitaciones.xhtml"
-                             styleClass="mt-8 px-8 py-4 font-semibold rounded-full shadow-lg transition-all duration-300 btn-reserve" />
         </div>
     </section>
 
@@ -107,7 +106,7 @@
             <h:link outcome="index" class="text-2xl font-bold font-serif text-white transition-colors duration-300 nav-logo">Hotel</h:link>
 
             <p:menubar id="desktop-menu" styleClass="hidden lg:flex items-center space-x-8 text-white">
-                <p:menuitem value="HOTEL" styleClass="nav-link font-medium" />
+                <p:menuitem value="HOTEL" styleClass="nav-link font-medium" outcome="index.xhtml"/>
 
                 <p:submenu label="HABITACIONES" styleClass="nav-link font-medium">
                     <p:menuitem value="ESTÁNDAR" outcome="habitaciones.xhtml" />
@@ -117,9 +116,8 @@
                     <p:menuitem value="HANDICAP" outcome="habitaciones.xhtml" />
                 </p:submenu>
 
-                <p:menuitem value="PROMOCIONES" styleClass="nav-link font-medium" outcome="index" />
-                <p:menuitem value="RESTAURANTE" styleClass="nav-link font-medium" outcome="index" />
-                <p:menuitem value="BAR" styleClass="nav-link font-medium" outcome="index" />
+                <p:menuitem value="RESTAURANTE" styleClass="nav-link font-medium" outcome="restaurante.xhtml" />
+                <p:menuitem value="BAR" styleClass="nav-link font-medium" outcome="bar.xhtml" />
             </p:menubar>
             <p:commandButton id="menu-button" styleClass="lg:hidden text-white focus:outline-none" icon="pi pi-bars" />
         </div>

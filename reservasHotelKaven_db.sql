@@ -110,29 +110,5 @@ values
 (201, 'Simple', 'Disponible', 55.00),
 (202, 'Doble', 'Disponible', 85.00);
 
-insert into Reserva (fecha_entrada, fecha_salida, id_huesped, id_habitacion) 
-values
-('2024-01-15', '2024-01-20', 1, 1),
-('2024-01-16', '2024-01-18', 2, 2),
-('2024-01-17', '2024-01-22', 3, 3),
-('2024-01-18', '2024-01-21', 4, 4),
-('2024-01-19', '2024-01-25', 5, 5),
-('2024-01-20', '2024-01-23', 6, 6),
-('2024-01-21', '2024-01-24', 7, 7),
-('2024-01-22', '2024-01-26', 8, 8),
-('2024-01-23', '2024-01-27', 9, 9),
-('2024-01-24', '2024-01-28', 10, 10);
 
-insert into Pago (estado_pago, id_reserva, id_usuario) 
-values
-('Pagado', 1, 1),
-('Pagado', 2, 2),
-('Pagado', 3, 3),
-('Pendiente', 4, 4),
-('Pagado', 5, 5),
-('Pendiente', 6, 6),
-('Pagado', 7, 7),
-('Pagado', 8, 8),
-('Pendiente', 9, 9),
-('Pagado', 10, 10);
 
